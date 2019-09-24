@@ -1,0 +1,49 @@
+---
+title: "ClassActivity1"
+author: "SuwonJung"
+date: "9/19/2019"
+output: html_document
+
+
+
+## Class Activity 1
+```{r}
+#1 Open a new R Markdown file, please write and run all your commands from within the R Markdown document
+
+#2 Delete the contents of the Markdown file and insert a new code block
+
+#3 Load the libraries tidyr and dplyr
+library(dplyr)
+library(tidyr)
+
+#4 Create a data frame from the swirl-data.csv file called DF1
+DF1 <- read.csv("swirl-data.csv", header = TRUE)
+
+#5 Create a new data frame that only includes the variables hash, lesson_name and attempt called DF2
+DF2 <- select(DF1, hash, lesson_name, attempt)
+
+#6 Use the group_by function to create a data frame that sums all the attempts for each hash by each lesson_name called DF3
+DF3 <- DF2 %>% group_by(hash, lesson_name) %>% summarise(attempt = sum(attempt))
+
+#7 On a scrap piece of paper draw what you think DF3 would look like if all the lesson names were column names
+
+#8 Convert DF3 to this format
+DF3b <- spread(DF3, lesson_name, attempt)
+
+#9 Create a new data frame from DF1 called DF4 that only includes the variables hash, lesson_name and correct
+DF4 <- select(DF1, hash, lesson_name, correct)
+
+#10 Convert the correct variable so that TRUE is coded as the number 1 and FALSE is coded as 0
+DF4$correct <- ifelse(DF4$correct == TRUE, 1, ifelse(DF4$correct == NA, NA, 0))
+
+#11 Create a new data frame called DF5 that provides a mean score for each student on each course
+DF5 <- DF4 %>% group_by(hash, lesson_name) %>% summarise(mean.correct = mean(correct, na.rm = TRUE))
+
+#12 Extra credit Convert the datetime variable into month-day-year format and create a new data frame (DF6) that shows the average correct for each day
+DF6 <- select(DF1, correct, datetime)
+DF6$correct <- ifelse(DF6$correct == TRUE, 1, 0)
+DF6$datetime <- as.POSIXlt(DF6$datetime, origin = "1970-01-01 00:00.00 UTC")
+DF6$datetime <- strftime(DF6$datetime, format="%b:%e")
+DF7 <- DF6 %>% group_by(datetime) %>% summarise(av.correct = mean(correct, na.rm = TRUE))
+
+```
