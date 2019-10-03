@@ -1,0 +1,27 @@
+---
+title: "classactivity"
+author: "MinnieLin"
+date: "September 19, 2019"
+output: html_document
+---
+##class activity 1 
+```{r}
+library(dplyr)
+library(tidyr)
+```
+
+```{r}
+DF1 <- read.csv('swirl-data.csv', header = TRUE)
+DF2 <- select(DF1, hash, lesson_name, attempt)
+DF3 <- DF2 %>% group_by(hash, lesson_name) %>% summarise(attempt = sum(attempt))
+DF3 <- spread(DF3, lesson_name, attempt)
+DF4 <- select(DF1, hash, lesson_name, correct)
+DF4$correct <- ifelse(DF4$correct == TRUE, 1, 
+                      ifelse(DF4$correct == is.NA, NA, 0))
+#DF4
+DF5 <- DF4 %>% group_by(hash, lesson_name) %>% summarise(mean.correct = mean(correct, na.rm = TRUE))
+#DF5
+
+
+```
+
