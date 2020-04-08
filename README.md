@@ -1,7 +1,8 @@
 # Data Wrangling Basics in R
 
-This repo contains files for an in-class activity introducing the class to data
-wrangling functions from the `dplyr` and `tidyr` packages.
+This repo contains files for an in-class activity (class activity 1)
+introducing the class to data wrangling functions from the `dplyr` and `tidyr`
+packages.
 
 HUDK 4050 is the first of three core courses in the Learning Analytics MS at
 Teachers College, Columbia University focusing on the thinking, methods, and
